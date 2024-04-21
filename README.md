@@ -3,7 +3,7 @@ Basic-Meta-Templates
 ### Description
 A collection of template types that can help with metaprogramming C++.</br>
 ### How to use
-Add lib "includes" to compiler (-I"includes/") and once include implementation "src/bmt/bmt.cpp" to main (or another) cpp file.
+Add lib "includes" to compiler (-I"include/") and once include implementation "src/bmt/bmt.cpp" to main (or another) cpp file.
 Ready! Now just add "#include <bmt/bmt.hpp>" where it needs. (also don't forget to add the flag -std=c++20 or higher)
 ### Post Scriptum
 At the moment, this library is more of a pet project, with a possible foundation for the future.</br>
