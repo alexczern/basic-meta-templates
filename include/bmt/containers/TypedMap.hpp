@@ -11,7 +11,7 @@ namespace bmt::containers
 {
 // TypedMap
 	template <LikePackHolder PackHolder_T, typename DataType_T>
-		requires (true == algorithms::is_unique_pack_v<PackHolder_T>)
+		requires algorithms::is_unique_pack_v<PackHolder_T>
 	class TypedMap
 	:	private PackHolder_T::place_t<PackAlgorithms>
 	{

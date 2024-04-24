@@ -11,7 +11,7 @@
 namespace bmt::containers
 {
 	template <LikePackHolder PackHolder_T, template<typename> typename Transformer_TT>
-		requires (true == algorithms::is_unique_pack_v<PackHolder_T>)
+		requires algorithms::is_unique_pack_v<PackHolder_T>
 	class TypedHeteroMap
 	:	private PackHolder_T::place_t<PackAlgorithms>
 	{

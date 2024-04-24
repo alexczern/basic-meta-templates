@@ -3,6 +3,7 @@
 namespace bmt::containers
 {
 	template <LikePackHolder PackHolder_T, template<typename> typename Transformer_TT>
+		requires algorithms::is_unique_pack_v<PackHolder_T>
 		template <typename Key_T>
 		Transformer_TT<Key_T>::type& TypedHeteroMap<
 			PackHolder_T, Transformer_TT

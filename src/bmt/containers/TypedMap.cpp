@@ -3,6 +3,7 @@
 namespace bmt::containers
 {
 	template <LikePackHolder PackHolder_T, typename DataType_T>
+		requires algorithms::is_unique_pack_v<PackHolder_T>
 		template <typename TypedKey_T>
 		DataType_T& TypedMap<
 			PackHolder_T, DataType_T
