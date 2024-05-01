@@ -119,6 +119,9 @@ namespace bmt
 	using containers::ItemsTuple;
 	/* ItemsTuple<Pack_T...> members:
 	(all "like integral_constant" has helper variable (template) "*_v")
+		// [ItemsTupleTail][type]
+			NextTuple
+
 		// [integral_constant<size_t>]
 			size
 
@@ -128,10 +131,15 @@ namespace bmt
 		// [like integral_constant<size_t>][template types]
 			count<typename>
 
+		// [compile-time][static methods]
+			not_last() -> consteval bool
+
 		// [run-time][methods]
+			next() -> NextTuple&
 			get<typename T, size_t sub_index = 0>() -> T&
 			get<size_t index>() -> auto&
 			forEach([](auto&){}) -> void
+			adjacentForEach([](auto&, auto&){}) -> void
 			indexedForEach([](auto&)<size_t index>{}) -> void
 			anyOf([](auto&) -> bool {}) -> bool
 			allOf([](auto&) -> bool {}) -> bool

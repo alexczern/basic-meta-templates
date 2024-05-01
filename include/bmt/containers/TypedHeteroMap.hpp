@@ -33,6 +33,10 @@ namespace bmt::containers
 	// run-time methods.
 		template <typename Key_T>
 		Transformer_TT<Key_T>::type& at();
+
+		template <typename Key_T>
+		const Transformer_TT<Key_T>::type& at() const;
+
 	};
 
 	template <template <typename...> typename PackHolder_VT, template<typename> typename Transformer_TT>
@@ -57,6 +61,10 @@ namespace bmt::containers
 	// run-time methods.
 		template <typename Key_T>
 		Transformer_TT<Key_T>::type& at() = delete;
+
+		template <typename Key_T>
+		const Transformer_TT<Key_T>::type& at() const = delete;
+
 	};
 
 	//~ class TypedHeteroMultiMap;

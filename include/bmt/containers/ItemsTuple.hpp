@@ -7,29 +7,77 @@
 
 namespace bmt::containers
 {
+#if 1 // helper
+	template <size_t index, typename Tuple_T>
+	struct ItemTypeByIndex;
+#endif // helper
+#if 1 // ItemsTupleTail
+	template <typename...>
+	class ItemsTupleTail;
 
-	template <typename... Pack_T>
-	struct ItemsHolder;
+	template <> class ItemsTupleTail<> {};
 
-	template <typename T, size_t sub_index = 0, typename... Pack_T>
-	struct ItemsHolderByType;
+	template <typename ItemType_T, typename... Pack_T>
+	class ItemsTupleTail<ItemType_T, Pack_T...>
+	:	public ItemsTupleTail<Pack_T...>
+	{
+	public:
+		using NextTuple = ItemsTupleTail<Pack_T...>;
 
-	template <size_t index, typename... Pack_T>
-	struct ItemsHolderByIndex;
+		ItemType_T item {};
 
+		ItemsTupleTail() = default;
+		ItemsTupleTail(const ItemsTupleTail&) = default;
+		ItemsTupleTail(ItemsTupleTail&&) = default;
+
+		ItemsTupleTail(const ItemType_T &first, const Pack_T&... args)
+		:	ItemsTupleTail<Pack_T...>(args...),
+			item(first) {}
+
+		inline static consteval bool not_last() { return sizeof...(Pack_T) != 0; }
+		NextTuple& next() { return *this; }
+		const NextTuple& next() const { return *this; }
+
+	// run-time methods
+		template <typename T, size_t sub_index = 0>
+		inline T& get();
+
+		template <typename T, size_t sub_index = 0>
+		inline const T& get() const;
+
+		template <size_t index>
+		inline ItemTypeByIndex<index, ItemsTupleTail<ItemType_T, Pack_T...> >::type& get();
+
+		template <size_t index>
+		inline const ItemTypeByIndex<index, ItemsTupleTail<ItemType_T, Pack_T...> >::type& get() const;
+
+		inline void forEach(auto lam);
+		inline void adjacentForEach(auto lam);
+		template <size_t I = 0>
+		inline void indexedForEach(auto lam);
+		inline bool anyOf(auto lam);
+		inline bool allOf(auto lam);
+		inline bool noneOf(auto lam);
+
+	};
+#endif // ItemsTupleTail
+#if 1 // ItemsTuple (Head)
 	template <typename... Pack_T>
 	class ItemsTuple
-	:	private PackAlgorithms<Pack_T...>
+	:	public ItemsTupleTail<Pack_T...>,
+		private PackAlgorithms<Pack_T...>
 	{
+	private:
+		using Tail = ItemsTupleTail<Pack_T...>;
 		using Base = PackAlgorithms<Pack_T...>;
-		ItemsHolder<Pack_T...> items;
+
 	public:
 		ItemsTuple() = default;
 		ItemsTuple(const ItemsTuple&) = default;
 		ItemsTuple(ItemsTuple&&) = default;
 
 		ItemsTuple(const Pack_T&... args)
-		:	items(args...) {}
+		:	Tail(args...) {}
 
 		using Base::size;
 		using Base::size_v;
@@ -38,20 +86,15 @@ namespace bmt::containers
 		using Base::count;
 		using Base::count_v;
 
-	// run-time methods
-		template <typename ItemType_T, size_t sub_index = 0>
-		ItemType_T& get();
-
-		template <size_t index>
-		ItemsHolderByIndex<index, Pack_T...>::type::type& get();
-
-		inline void forEach(auto func);
-		inline void indexedForEach(auto func);
-		inline bool anyOf(auto func);
-		inline bool allOf(auto func);
-		inline bool noneOf(auto func);
+		using Tail::forEach;
+		using Tail::indexedForEach;
+		using Tail::anyOf;
+		using Tail::allOf;
+		using Tail::noneOf;
 
 	};
+
+// Empty specialization.
 	template <>
 	class ItemsTuple<>
 	:	private PackAlgorithms<>
@@ -82,6 +125,6 @@ namespace bmt::containers
 		inline bool anyOf(auto f) = delete;
 		inline bool allOf(auto f) = delete;
 		inline bool noneOf(auto f) = delete;
-
 	};
+#endif // ItemsTuple (Head)
 }
