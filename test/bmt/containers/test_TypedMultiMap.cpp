@@ -1,15 +1,14 @@
-#include <tuple>
 #include <type_traits>
 
 #include <bmt/PackHolder.hpp>
+#include <bmt/TypesPack.hpp>
 
-namespace bmt
+namespace bmt::containers
 {
-	template <LikeLogger Logger_T>
-	template <template <typename, typename> typename TypedMultiMap_T>
-	int LibTester<Logger_T>::test_TypedMultiMap()
+	template <template <typename, typename> typename TypedMultiMap_T, LikeLogger Logger_T>
+	int test_TypedMultiMap(Logger_T& log)
 	{
-		Subtester tester(log, "bmt::LibTester::test_TypedMultiMap");
+		Subtester tester(log, "bmt::containers::test_TypedMultiMap");
 		using TypedMultiMapExample = TypedMultiMap_T<
 			PackHolder<int, float, double, int, float, char>,
 			int

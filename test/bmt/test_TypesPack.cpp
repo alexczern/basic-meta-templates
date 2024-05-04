@@ -1,23 +1,20 @@
 #include <tuple>
 #include <type_traits>
 
-#include <bmt/PackHolder.hpp>
-
 namespace bmt
 {
-	template <LikeLogger Logger_T>
-	template<template <typename...> typename TypesPack_VT>
-	int LibTester<Logger_T>::test_TypesPack()
+	template <template <typename...> typename TypesPack_VT, LikeLogger Logger_T>
+	int test_TypesPack(Logger_T& log)
 	{
-		Subtester tester(log, "bmt::LibTester::test_TypesPack");
-		tester.check_assert(test_PackAlgorithms<TypesPack_VT>() == 0);
-		tester.check_assert(test_PackHolder<TypesPack_VT>() == 0);
+		Subtester tester(log, "bmt::test_TypesPack");
+		tester.check_assert(test_PackHolder<TypesPack_VT>(log) == 0);
+		tester.check_assert(test_PackAlgorithms<TypesPack_VT>(log) == 0);
 
 		if (tester.fail())
 			return -1;
 
 	// compile-time tests
-	using Example = TypesPack_VT<
+		using Example = TypesPack_VT<
 			int, double, int, double,
 			float, unsigned int, unsigned int,
 			float, int, float, int
@@ -56,8 +53,8 @@ namespace bmt
 		>::value == Example::template partly_includes_pack_v<PartlyIncludesSample2>);
 	#endif
 	#if 1 // ::front_expand_pack and ::back_expand_t
-	using ExpandedExample = TypesPack_VT<int, float, double, char, bool>;
-	using ExpandedSample = TypesPack_VT<char, int, float>;
+		using ExpandedExample = TypesPack_VT<int, float, double, char, bool>;
+		using ExpandedSample = TypesPack_VT<char, int, float>;
 	// (::front_expand_t)
 		using FrontExpandedExample = typename ExpandedExample::front_expand_pack<ExpandedSample>::type;
 		static_assert(std::is_same_v<

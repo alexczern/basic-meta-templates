@@ -1,15 +1,14 @@
-#include <tuple>
 #include <type_traits>
 
 #include <bmt/PackHolder.hpp>
+#include <bmt/TypesPack.hpp>
 
-namespace bmt
+namespace bmt::containers
 {
-	template <LikeLogger Logger_T>
-	template <template <typename, typename> typename TypedMap_T>
-	int LibTester<Logger_T>::test_TypedMap()
+	template <template <typename, typename> typename TypedMap_T, LikeLogger Logger_T>
+	int test_TypedMap(Logger_T& log)
 	{
-		Subtester tester(log, "bmt::LibTester::test_TypedMap");
+		Subtester tester(log, "bmt::containers::test_TypedMap");
 		using TypedMapExample = TypedMap_T<
 			PackHolder<int, float, double, char>,
 			int

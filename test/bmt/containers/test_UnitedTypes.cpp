@@ -1,8 +1,8 @@
 #include <type_traits>
 
-namespace bmt
+namespace bmt::containers
 {
-	namespace test_impl
+	namespace test_UnitedTypes_impl
 	{
 		struct Alpha
 		{
@@ -17,13 +17,13 @@ namespace bmt
 			int b_num = 30;
 		};
 	}
-	template <LikeLogger Logger_T>
-	template <template <typename...> typename UnitedTypes_T>
-	int LibTester<Logger_T>::test_UnitedTypes()
+	template <template <typename...> typename UnitedTypes_VT, LikeLogger Logger_T>
+	int test_UnitedTypes(Logger_T& log)
 	{
-		Subtester tester(log, "bmt::LibTester::test_UnitedTypes");
-		using namespace test_impl;
-		UnitedTypes_T<Alpha, Gamma, Beta> uObject({.a_num = 100}, {}, {.b_num = 35});
+		Subtester tester(log, "bmt::containers::test_UnitedTypes");
+
+		using namespace test_UnitedTypes_impl;
+		UnitedTypes_VT<Alpha, Gamma, Beta> uObject({.a_num = 100}, {}, {.b_num = 35});
 		static_assert(std::is_base_of_v<Alpha, decltype(uObject)>);
 		static_assert(std::is_base_of_v<Gamma, decltype(uObject)>);
 		static_assert(std::is_base_of_v<Beta, decltype(uObject)>);

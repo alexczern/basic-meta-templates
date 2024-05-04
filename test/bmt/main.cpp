@@ -1,7 +1,6 @@
 #include <iostream>
-#include <bmt/bmt.hpp>
 #include "../src/bmt/bmt.cpp"
-#include "LibTester.cpp"
+#include "test_bmt.cpp"
 
 namespace bmt
 {
@@ -77,8 +76,8 @@ namespace bmt
 int main()
 {
 	bmt::Logger logger(std::cout);
-	bmt::LibTester<bmt::Logger> test(logger);
-	int result = test.start();
+
+	int result = bmt::test_bmt(logger);
 	logger.info((result == 0) ? "[SUCCESS]" : "[CATASTROPHE]", "[RETURN CODE: ", result, ']');
 	return 0;
 }

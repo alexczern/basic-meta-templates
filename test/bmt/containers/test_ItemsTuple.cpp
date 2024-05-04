@@ -1,16 +1,12 @@
-#include <tuple>
 #include <type_traits>
 
-#include <bmt/PackHolder.hpp>
-
-namespace bmt
+namespace bmt::containers
 {
-template <LikeLogger Logger_T>
-	template <template <typename...> typename ItemsTuple_T>
-	int LibTester<Logger_T>::test_ItemsTuple()
+	template <template <typename...> typename ItemsTuple_VT, LikeLogger Logger_T>
+	int test_ItemsTuple(Logger_T& log)
 	{
-		Subtester tester(log, "bmt::LibTester::test_ItemsTuple");
-		using ItemsTupleExample = ItemsTuple_T<int, int, double, float, long, short, unsigned int>;
+		Subtester tester(log, "bmt::containers::test_ItemsTuple");
+		using ItemsTupleExample = ItemsTuple_VT<int, int, double, float, long, short, unsigned int>;
 		ItemsTupleExample itemsTuple(123, 0, 789.d, -101112.f, 1234568789, 0, 131415);
 		static_assert(
 			sizeof(itemsTuple) ==
@@ -103,6 +99,13 @@ template <LikeLogger Logger_T>
 		);
 		tester.check_assert(counter == 7);
 		counter = 0;
+		itemsTuple.adjacentForEach(
+			[&tester, &counter](auto &first, auto& second) {
+				++counter;
+			}
+		);
+		tester.check_assert(counter == 6);
+		counter = 0;
 
 		auto Kono = [](auto &item) -> bool {
 				if(item == 123)
@@ -137,7 +140,7 @@ template <LikeLogger Logger_T>
 	#endif // run-time tests
 
 		struct
-		: public ItemsTuple_T<>
+		: public ItemsTuple_VT<>
 		{} emptyItemsTuple;
 		static_assert(std::is_empty_v<decltype(emptyItemsTuple)>);
 		static_assert(emptyItemsTuple.size_v == 0);

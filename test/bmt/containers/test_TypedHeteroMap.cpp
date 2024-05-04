@@ -1,15 +1,14 @@
-#include <tuple>
 #include <type_traits>
 
 #include <bmt/PackHolder.hpp>
+#include <bmt/TypesPack.hpp>
 
-namespace bmt
+namespace bmt::containers
 {
-	template <LikeLogger Logger_T>
-	template <template <typename, template<typename>typename> typename TypedHeteroMap_T>
-	int LibTester<Logger_T>::test_TypedHeteroMap()
+	template <template <typename, template<typename>typename> typename TypedHeteroMap_T, LikeLogger Logger_T>
+	int test_TypedHeteroMap(Logger_T& log)
 	{
-		Subtester tester(log, "bmt::LibTester::test_TypedHeteroMap");
+		Subtester tester(log, "bmt::containers::test_TypedHeteroMap");
 		TypedHeteroMap_T<PackHolder<int, float, double>, custom_transformer> typedHeteroMap;
 
 		static_assert(std::is_same_v<float&, decltype(typedHeteroMap.template at<int>())>);

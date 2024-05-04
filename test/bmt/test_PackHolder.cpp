@@ -1,15 +1,12 @@
 #include <tuple>
 #include <type_traits>
 
-#include <bmt/PackHolder.hpp>
-
 namespace bmt
 {
-	template <LikeLogger Logger_T>
-	template<template <typename...> typename PackHolder_VT>
-	int LibTester<Logger_T>::test_PackHolder()
+	template <template <typename...> typename PackHolder_VT, LikeLogger Logger_T>
+	int test_PackHolder(Logger_T& log)
 	{
-		auto t = log.tag("bmt::LibTester::test_PackHolder");
+		Subtester tester(log, "bmt::test_PackHolder");
 	// first test
 		using Example = PackHolder_VT<int, float, double, char, bool>;
 
@@ -32,17 +29,18 @@ namespace bmt
 		using SampleTupleBackExpanded = std::tuple<int, float, double, char, bool, char, int, float>;
 		static_assert(true == std::is_same_v<PlacedTupleBackExpanded, SampleTupleBackExpanded>);
 	// thrid test
-		static_assert(is_unique_pack_v< PackHolder<int> >);
-		static_assert(is_unique_pack_v< PackHolder<int, float> >);
-		static_assert(is_unique_pack_v< PackHolder<int, float, double> >);
-		static_assert(false == is_unique_pack_v< PackHolder<int, float, double, double> >);
+		static_assert(is_unique_pack_v< PackHolder_VT<int> >);
+		static_assert(is_unique_pack_v< PackHolder_VT<int, float> >);
+		static_assert(is_unique_pack_v< PackHolder_VT<int, float, double> >);
+		static_assert(false == is_unique_pack_v< PackHolder_VT<int, float, double, double> >);
 		static_assert(size_of_pack_v<Example> == 5);
 		using UnitedPacks = typename unite_packs<Example, FrontExpandedExample, BackExpandedExample>::type;
+		static_assert(size_of_pack<UnitedPacks>::value == 21);
 		static_assert(std::is_same_v<UnitedPacks, unite_packs_t<Example, FrontExpandedExample, BackExpandedExample>>);
 		static_assert(
-			std::is_same_v<
+			std::is_base_of_v<
 				UnitedPacks,
-				PackHolder<
+				PackHolder_VT<
 					int, float, double, char, bool,
 					char, int, float, int, float, double, char, bool,
 					int, float, double, char, bool, char, int, float

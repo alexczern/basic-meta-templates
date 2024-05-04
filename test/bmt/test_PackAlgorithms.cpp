@@ -1,14 +1,11 @@
-#include <cassert>
-#include <typeinfo>
 #include <type_traits>
 
 namespace bmt
 {
-	template <LikeLogger Logger_T>
-	template <template <typename...> typename PackAlgorithms_VT>
-	int LibTester<Logger_T>::test_PackAlgorithms()
+	template <template <typename...> typename PackAlgorithms_VT, LikeLogger Logger_T>
+	int test_PackAlgorithms(Logger_T& log)
 	{
-		Subtester tester(log, "bmt::LibTester::test_PackAlgorithms");
+		Subtester tester(log, "bmt::test_PackAlgorithms");
 		using Example = PackAlgorithms_VT<
 			int, double, int, double,
 			float, unsigned int, unsigned int,
