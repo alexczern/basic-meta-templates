@@ -22,6 +22,33 @@ namespace bmt::containers
 		tester.check_assert(typedMap.template at<float>() == -456);
 		tester.check_assert(typedMap.template at<double>() == 789);
 		tester.check_assert(typedMap.template at<char>() == -101);
+		typedMap.forEach(
+			[&tester]<typename TypedKey_T>(int& value)
+			{
+				if constexpr (std::is_same_v<TypedKey_T, int>)
+					tester.check_assert(value == 123);
+				else if constexpr (std::is_same_v<TypedKey_T, float>)
+					tester.check_assert(value == -456);
+				else if constexpr (std::is_same_v<TypedKey_T, double>)
+					tester.check_assert(value == 789);
+				else if constexpr (std::is_same_v<TypedKey_T, char>)
+					tester.check_assert(value == -101);
+			}
+		);
+		const auto& c_typedMap = typedMap;
+		c_typedMap.forEach(
+			[&tester]<typename TypedKey_T>(const int& value)
+			{
+				if constexpr (std::is_same_v<TypedKey_T, int>)
+					tester.check_assert(value == 123);
+				else if constexpr (std::is_same_v<TypedKey_T, float>)
+					tester.check_assert(value == -456);
+				else if constexpr (std::is_same_v<TypedKey_T, double>)
+					tester.check_assert(value == 789);
+				else if constexpr (std::is_same_v<TypedKey_T, char>)
+					tester.check_assert(value == -101);
+			}
+		);
 
 		struct
 		: public TypedMap_T< PackHolder<>, int >

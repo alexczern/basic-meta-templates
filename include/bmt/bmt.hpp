@@ -87,7 +87,7 @@ namespace bmt
 #endif // special algorithms for LikePackHolders
 #if 1 // Containers template types.
 	using containers::TypedMap;
-	/* TypedMap<LikePackHolder, typename> members:
+	/* TypedMap<LikePackHolder, typename DataType_T> members:
 	(all "like integral_constant" has helper variable (template) "*_v")
 		// [integral_constant<size_t>]
 			size
@@ -99,7 +99,8 @@ namespace bmt
 			count<typename>
 
 		// [run-time][methods]
-			at<typename T>() -> T&;
+			at<typename T>() -> T&
+			forEach([]<typename TypedKey_T>(DataType_T&){}) -> void
 	*/
 	using containers::TypedMultiMap;
 	/* TypedMultiMap<LikePackHolder, typename> members:
@@ -114,7 +115,7 @@ namespace bmt
 			count<typename>
 
 		// [run-time][methods]
-			at<typename T, size_t sub_index = 0>() -> T&;
+			at<typename T, size_t sub_index = 0>() -> T&
 	*/
 	using containers::ItemsTuple;
 	/* ItemsTuple<Pack_T...> members:

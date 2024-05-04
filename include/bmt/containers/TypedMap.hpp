@@ -9,7 +9,7 @@
 
 namespace bmt::containers
 {
-// TypedMap
+#if 1 // TypedMap
 	template <LikePackHolder PackHolder_T, typename DataType_T>
 		requires algorithms::is_unique_pack_v<PackHolder_T>
 	class TypedMap
@@ -38,6 +38,10 @@ namespace bmt::containers
 
 		template <typename TypedKey_T>
 		const DataType_T& at() const;
+
+		void forEach(auto lam);
+		void forEach(auto lam) const;
+
 	};
 
 	template <template <typename...> typename PackHolder_VT, typename DataType_T>
@@ -65,9 +69,12 @@ namespace bmt::containers
 
 		template <typename>
 		const DataType_T& at() const = delete;
-	};
 
-// TypedMultiMap
+		void forEach(auto lam) = delete;
+		void forEach(auto lam) const = delete;
+	};
+#endif // TypedMap
+#if 1 // TypedMultiMap
 	template <LikePackHolder PackHolder_T, typename DataType_T>
 	class TypedMultiMap
 	:	private PackHolder_T::place_t<PackAlgorithms>
@@ -125,4 +132,5 @@ namespace bmt::containers
 		const DataType_T& at() const = delete;
 
 	};
+#endif // TypedMultiMap
 }
