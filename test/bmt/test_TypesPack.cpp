@@ -23,19 +23,19 @@ namespace bmt
 		using IncludesTest0 = TypesPack_VT<int, unsigned int, float, double>;
 		static_assert(Example::template includes_pack_v<IncludesTest0> == true);
 		static_assert(std::type_identity_t<
-			typename Example::includes_pack<IncludesTest0>
+			typename Example::template includes_pack<IncludesTest0>
 		>::value == Example::template includes_pack_v<IncludesTest0>);
 
 		using IncludesTest1 = TypesPack_VT<int, unsigned int, float, double, short>;
 		static_assert(Example::template includes_pack_v<IncludesTest1> == false);
 		static_assert(std::type_identity_t<
-			typename Example::includes_pack<IncludesTest1>
+			typename Example::template includes_pack<IncludesTest1>
 		>::value == Example::template includes_pack_v<IncludesTest1>);
 
 		using IncludesTest2 = TypesPack_VT<short, char, bool>;
 		static_assert(Example::template includes_pack_v<IncludesTest2> == false);
 		static_assert(std::type_identity_t<
-			typename Example::includes_pack<IncludesTest2>
+			typename Example::template includes_pack<IncludesTest2>
 		>::value == Example::template includes_pack_v<IncludesTest2>);
 
 	#endif
@@ -43,32 +43,32 @@ namespace bmt
 		using PartlyIncludesSample = TypesPack_VT<int, unsigned int, float, double>;
 		static_assert(Example::template partly_includes_pack_v<PartlyIncludesSample> == true);
 		static_assert(std::type_identity_t<
-			typename Example::partly_includes_pack<PartlyIncludesSample>
+			typename Example::template partly_includes_pack<PartlyIncludesSample>
 		>::value == Example::template partly_includes_pack_v<PartlyIncludesSample>);
 
 		using PartlyIncludesSample2 = TypesPack_VT<short, char, bool>;
 		static_assert(Example::template partly_includes_pack_v<PartlyIncludesSample2> == false);
 		static_assert(std::type_identity_t<
-			typename Example::partly_includes_pack<PartlyIncludesSample2>
+			typename Example::template partly_includes_pack<PartlyIncludesSample2>
 		>::value == Example::template partly_includes_pack_v<PartlyIncludesSample2>);
 	#endif
 	#if 1 // ::front_expand_pack and ::back_expand_t
 		using ExpandedExample = TypesPack_VT<int, float, double, char, bool>;
 		using ExpandedSample = TypesPack_VT<char, int, float>;
 	// (::front_expand_t)
-		using FrontExpandedExample = typename ExpandedExample::front_expand_pack<ExpandedSample>::type;
+		using FrontExpandedExample = typename ExpandedExample::template front_expand_pack<ExpandedSample>::type;
 		static_assert(std::is_same_v<
-			FrontExpandedExample, typename ExpandedExample::front_expand_pack_t<ExpandedSample>
+			FrontExpandedExample, typename ExpandedExample::template front_expand_pack_t<ExpandedSample>
 		>);
-		using PlacedTupleFrontExpanded = typename FrontExpandedExample::place_t<std::tuple>;
+		using PlacedTupleFrontExpanded = typename FrontExpandedExample::template place_t<std::tuple>;
 		using SampleTupleFrontExpanded = std::tuple<char, int, float, int, float, double, char, bool>;
 		static_assert(true == std::is_same_v<PlacedTupleFrontExpanded, SampleTupleFrontExpanded>);
 	// (::back_expand_t)
-		using BackExpandedExample = typename ExpandedExample::back_expand_pack<ExpandedSample>::type;
+		using BackExpandedExample = typename ExpandedExample::template back_expand_pack<ExpandedSample>::type;
 		static_assert(std::is_same_v<
-			BackExpandedExample, typename ExpandedExample::back_expand_pack_t<ExpandedSample>
+			BackExpandedExample, typename ExpandedExample::template back_expand_pack_t<ExpandedSample>
 		>);
-		using PlacedTupleBackExpanded = typename BackExpandedExample::place_t<std::tuple>;
+		using PlacedTupleBackExpanded = typename BackExpandedExample::template place_t<std::tuple>;
 		using SampleTupleBackExpanded = std::tuple<int, float, double, char, bool, char, int, float>;
 		static_assert(true == std::is_same_v<PlacedTupleBackExpanded, SampleTupleBackExpanded>);
 	#endif

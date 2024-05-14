@@ -13,17 +13,17 @@ namespace bmt::containers
 	template <LikePackHolder PackHolder_T, template<typename> typename Transformer_TT>
 		requires algorithms::is_unique_pack_v<PackHolder_T>
 	class TypedHeteroMap
-	:	private PackHolder_T::place_t<PackAlgorithms>
+	:	private PackHolder_T::template place_t<PackAlgorithms>
 	{
 	private:
-		using Base = typename PackHolder_T::place_t<PackAlgorithms>;
-		Base::template transform_t<Transformer_TT>::template place_t<ItemsTuple> itemsTuple;
+		using Base = typename PackHolder_T::template place_t<PackAlgorithms>;
+		typename Base::template transform_t<Transformer_TT>::template place_t<ItemsTuple> itemsTuple;
 	public:
 		TypedHeteroMap() = default;
 		TypedHeteroMap(const TypedHeteroMap&) = default;
 		TypedHeteroMap(TypedHeteroMap&&) = default;
 
-		using Base::size;
+		using typename Base::size;
 		using Base::size_v;
 		using Base::contains;
 		using Base::contains_v;
@@ -32,10 +32,10 @@ namespace bmt::containers
 
 	// run-time methods.
 		template <typename Key_T>
-		Transformer_TT<Key_T>::type& at();
+		typename Transformer_TT<Key_T>::type& at();
 
 		template <typename Key_T>
-		const Transformer_TT<Key_T>::type& at() const;
+		const typename Transformer_TT<Key_T>::type& at() const;
 
 	};
 
@@ -60,10 +60,10 @@ namespace bmt::containers
 
 	// run-time methods.
 		template <typename Key_T>
-		Transformer_TT<Key_T>::type& at() = delete;
+		typename Transformer_TT<Key_T>::type& at() = delete;
 
 		template <typename Key_T>
-		const Transformer_TT<Key_T>::type& at() const = delete;
+		const typename Transformer_TT<Key_T>::type& at() const = delete;
 
 	};
 

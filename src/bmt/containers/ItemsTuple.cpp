@@ -63,7 +63,7 @@ namespace bmt::containers
 
 	template <typename ItemType_T, typename... Pack_T>
 		template <size_t index>
-		ItemTypeByIndex<index, ItemsTupleTail<ItemType_T, Pack_T...>>::type& ItemsTupleTail<ItemType_T, Pack_T...>
+		typename ItemTypeByIndex<index, ItemsTupleTail<ItemType_T, Pack_T...>>::type& ItemsTupleTail<ItemType_T, Pack_T...>
 		:: get()
 		{
 			if constexpr(index > 0)
@@ -74,7 +74,7 @@ namespace bmt::containers
 
 	template <typename ItemType_T, typename... Pack_T>
 		template <size_t index>
-		const ItemTypeByIndex<index, ItemsTupleTail<ItemType_T, Pack_T...>>::type& ItemsTupleTail<ItemType_T, Pack_T...>
+		const typename ItemTypeByIndex<index, ItemsTupleTail<ItemType_T, Pack_T...>>::type& ItemsTupleTail<ItemType_T, Pack_T...>
 		:: get() const
 		{
 			if constexpr(index > 0)

@@ -103,7 +103,7 @@ namespace bmt::algorithms
 	inline constexpr bool is_unique_pack_v = is_unique_pack<PackHolder_T>::value;
 // like integral_constant<size_t> template types.
 	template <LikePackHolder PackHolder_T>
-	using size_of_pack = typename PackHolder_T::place_t<algorithms::size_of>;
+	using size_of_pack = typename PackHolder_T::template place_t<algorithms::size_of>;
 	template <LikePackHolder PackHolder_T>
 	inline constexpr size_t size_of_pack_v = size_of_pack<PackHolder_T>::value;
 // like type_identity<LikePackHolder> template types.

@@ -16,22 +16,22 @@ namespace bmt
 		template <template<typename> typename Checker_TT>
 		using copy_if = algorithms::copy_if<Checker_TT, PackHolder<>, Pack_T...>;
 		template <template<typename> typename Checker_TT>
-		using copy_if_t = copy_if<Checker_TT>::type;
+		using copy_if_t = typename copy_if<Checker_TT>::type;
 
 		template <template<typename>typename Extractor_TT>
 		using transform = algorithms::transform<Extractor_TT, PackHolder<>, Pack_T...>;
 		template <template<typename>typename Extractor_TT>
-		using transform_t = transform<Extractor_TT>::type;
+		using transform_t = typename transform<Extractor_TT>::type;
 
 		template <template<typename> typename Checker_TT>
 		using find_if = algorithms::find_if<Checker_TT, Pack_T...>;
 		template <template<typename> typename Checker_TT>
-		using find_if_t = find_if<Checker_TT>::type;
+		using find_if_t = typename find_if<Checker_TT>::type;
 
 		template <size_t _index>
 		using type_of = algorithms::type_of<_index, Pack_T...>;
 		template <size_t _index>
-		using type_of_t = type_of<_index>::type;
+		using type_of_t = typename type_of<_index>::type;
 	// nested "bool_constant" template types
 		template <template<typename> typename Checker_TT>
 		using any_of = algorithms::any_of<Checker_TT, Pack_T...>;
@@ -232,15 +232,16 @@ namespace bmt
 			typename impl_concepts::check_singl_param_templ<T::template count>;
 			typename impl_concepts::check_index_of_templ<T::template index_of>;
 
-			T::template any_of_v;
-			T::template all_of_v;
-			T::template none_of_v;
-			T::template contains_v;
-			T::template includes_v;
-			T::template partly_includes_v;
-			T::template equal_v;
-			T::template count_v;
-			T::template index_of_v;
+			// how to check template variable? (use clang)
+			//~ T::template any_of_v;
+			//~ T::template all_of_v;
+			//~ T::template none_of_v;
+			//~ T::template contains_v;
+			//~ T::template includes_v;
+			//~ T::template partly_includes_v;
+			//~ T::template equal_v;
+			//~ T::template count_v;
+			//~ T::template index_of_v;
 
 			T::template forEach([]<typename>{});
 			T::template indexedForEach([]<size_t, typename>{});

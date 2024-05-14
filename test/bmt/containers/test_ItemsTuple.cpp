@@ -7,7 +7,7 @@ namespace bmt::containers
 	{
 		Subtester tester(log, "bmt::containers::test_ItemsTuple");
 		using ItemsTupleExample = ItemsTuple_VT<int, int, double, float, long, short, unsigned int>;
-		ItemsTupleExample itemsTuple(123, 0, 789.d, -101112.f, 1234568789, 0, 131415);
+		ItemsTupleExample itemsTuple(123, 0, 789.0, -101112.f, 1234568789, 0, 131415);
 		static_assert(
 			sizeof(itemsTuple) ==
 			sizeof(std::tuple<int, int, double, float, long, short, unsigned int>)
@@ -49,14 +49,14 @@ namespace bmt::containers
 		itemsTuple.template get<short>() = 12345;
 		tester.check_assert( itemsTuple.template get<int>() == 123);
 		tester.check_assert( itemsTuple.template get<int, 1>() == -456);
-		tester.check_assert( itemsTuple.template get<double>() == 789.d);
+		tester.check_assert( itemsTuple.template get<double>() == 789);
 		tester.check_assert( itemsTuple.template get<float>() == -101112.f);
 		tester.check_assert( itemsTuple.template get<long>() == 1234568789);
 		tester.check_assert( itemsTuple.template get<short>() == 12345);
 		tester.check_assert( itemsTuple.template get<unsigned int>() == 131415);
 		tester.check_assert( itemsTuple.template get<0>() == 123);
 		tester.check_assert( itemsTuple.template get<1>() == -456);
-		tester.check_assert( itemsTuple.template get<2>() == 789.d);
+		tester.check_assert( itemsTuple.template get<2>() == 789);
 		tester.check_assert( itemsTuple.template get<3>() == -101112.f);
 		tester.check_assert( itemsTuple.template get<4>() == 1234568789);
 		tester.check_assert( itemsTuple.template get<5>() == 12345);
@@ -100,7 +100,7 @@ namespace bmt::containers
 		tester.check_assert(counter == 7);
 		counter = 0;
 		itemsTuple.adjacentForEach(
-			[&tester, &counter](auto &first, auto& second) {
+			[&counter](auto &first, auto& second) {
 				++counter;
 			}
 		);

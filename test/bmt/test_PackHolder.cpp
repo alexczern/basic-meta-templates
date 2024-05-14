@@ -11,21 +11,21 @@ namespace bmt
 		using Example = PackHolder_VT<int, float, double, char, bool>;
 
 		static_assert(LikePackHolder<Example>);
-		using PlacedTuple = typename Example::place_t<std::tuple>;
+		using PlacedTuple = typename Example::template place_t<std::tuple>;
 		using SampleTuple = std::tuple<int, float, double, char, bool>;
 		using WrongSampleTuple = std::tuple<int, float, double>;
 		static_assert(true == std::is_same_v<PlacedTuple, SampleTuple >);
 		static_assert(false == std::is_same_v<PlacedTuple, WrongSampleTuple >);
 	// second test (::front_expand_t)
-		using FrontExpandedExample = typename Example::front_expand_t<char, int, float>;
+		using FrontExpandedExample = typename Example::template front_expand_t<char, int, float>;
 		static_assert(LikePackHolder<FrontExpandedExample>);
-		using PlacedTupleFrontExpanded = typename FrontExpandedExample::place_t<std::tuple>;
+		using PlacedTupleFrontExpanded = typename FrontExpandedExample::template place_t<std::tuple>;
 		using SampleTupleFrontExpanded = std::tuple<char, int, float, int, float, double, char, bool>;
 		static_assert(true == std::is_same_v<PlacedTupleFrontExpanded, SampleTupleFrontExpanded>);
 	// second test (::back_expand_t)
-		using BackExpandedExample = typename Example::back_expand_t<char, int, float>;
+		using BackExpandedExample = typename Example::template back_expand_t<char, int, float>;
 		static_assert(LikePackHolder<BackExpandedExample>);
-		using PlacedTupleBackExpanded = typename BackExpandedExample::place_t<std::tuple>;
+		using PlacedTupleBackExpanded = typename BackExpandedExample::template place_t<std::tuple>;
 		using SampleTupleBackExpanded = std::tuple<int, float, double, char, bool, char, int, float>;
 		static_assert(true == std::is_same_v<PlacedTupleBackExpanded, SampleTupleBackExpanded>);
 	// thrid test

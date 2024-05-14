@@ -16,7 +16,7 @@ namespace bmt::algorithms
 	// recursion and type addition.
 	:	public copy_if<
 			Checker_TT,
-			typename PackHolder_T::back_expand_t<ItemType_T>,
+			typename PackHolder_T::template back_expand_t<ItemType_T>,
 			Pack_T...
 		>	{};
 
@@ -54,7 +54,7 @@ namespace bmt::algorithms
 	// recursion.
 	:	public transform<
 			Transformer_TT,
-			typename PackHolder_T::back_expand_t<typename Transformer_TT<ItemType_T>::type>,
+			typename PackHolder_T::template back_expand_t<typename Transformer_TT<ItemType_T>::type>,
 			Pack_T...
 		>	{};
 
@@ -221,7 +221,7 @@ namespace bmt::algorithms
 		else if constexpr (sizeof...(Pack_T) > 0)
 			return index_of_f<Sample_T, _sub_index, (_counter + 1), Pack_T...>();
 		else
-			static_assert(std::is_void_v<bool>, "Index of type is not found.");
+			static_assert(sizeof...(Pack_T) > 0, "Index of type is not found.");
 	}
 
 #endif // compile-time functions impl.
@@ -289,7 +289,7 @@ namespace bmt::algorithms
 // is_unique_pack
 	template <LikePackHolder PackHolder_T>
 	struct is_unique_pack
-	: public PackHolder_T::place_t<algorithms::is_unique> {};
+	: public PackHolder_T::template place_t<algorithms::is_unique> {};
 	template <template <typename...> typename PackHolder_VT>
 		requires LikePackHolder<PackHolder_VT<>>
 	struct is_unique_pack< PackHolder_VT<> >
@@ -299,7 +299,7 @@ namespace bmt::algorithms
 	struct unite_packs<First_T, Second_T, Pack_T...>
 	// recursion.
 	:	public unite_packs<
-			typename Second_T::place_t<First_T::template back_expand_t>,
+			typename Second_T::template place_t<First_T::template back_expand_t>,
 			Pack_T...
 		>
 	{};

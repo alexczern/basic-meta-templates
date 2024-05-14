@@ -46,10 +46,10 @@ namespace bmt::containers
 		inline const T& get() const;
 
 		template <size_t index>
-		inline ItemTypeByIndex<index, ItemsTupleTail<ItemType_T, Pack_T...> >::type& get();
+		inline typename ItemTypeByIndex<index, ItemsTupleTail<ItemType_T, Pack_T...> >::type& get();
 
 		template <size_t index>
-		inline const ItemTypeByIndex<index, ItemsTupleTail<ItemType_T, Pack_T...> >::type& get() const;
+		inline const typename ItemTypeByIndex<index, ItemsTupleTail<ItemType_T, Pack_T...> >::type& get() const;
 
 		inline void forEach(auto lam);
 		inline void adjacentForEach(auto lam);
@@ -79,7 +79,7 @@ namespace bmt::containers
 		ItemsTuple(const Pack_T&... args)
 		:	Tail(args...) {}
 
-		using Base::size;
+		using typename Base::size;
 		using Base::size_v;
 		using Base::contains;
 		using Base::contains_v;

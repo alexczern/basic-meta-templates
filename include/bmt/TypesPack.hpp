@@ -33,8 +33,9 @@ namespace bmt
 			typename impl::check_singl_param_templ<T::template includes_pack>;
 			typename impl::check_singl_param_templ<T::template partly_includes_pack>;
 
-			T::template includes_pack_v;
-			T::template partly_includes_pack_v;
+			// how to check template variable? (use clang)
+			//~ T::template includes_pack_v;
+			//~ T::template partly_includes_pack_v;
 		};
 #endif
 // TypesPack
@@ -50,7 +51,7 @@ namespace bmt
 		template <LikePackHolder AnotherPackHolder_T>
 		struct front_expand_pack
 		{
-			using type = typename AnotherPackHolder_T::place_t<BaseHolder::template front_expand_t>::place_t<TypesPack>;
+			using type = typename AnotherPackHolder_T::template place_t<BaseHolder::template front_expand_t>::template place_t<TypesPack>;
 		};
 		template <LikePackHolder AnotherPackHolder_T>
 		using front_expand_pack_t = typename front_expand_pack<AnotherPackHolder_T>::type;
@@ -58,7 +59,7 @@ namespace bmt
 		template <LikePackHolder AnotherPackHolder_T>
 		struct back_expand_pack
 		{
-			using type = typename AnotherPackHolder_T::place_t<BaseHolder::template back_expand_t>::place_t<TypesPack>;
+			using type = typename AnotherPackHolder_T::template place_t<BaseHolder::template back_expand_t>::template place_t<TypesPack>;
 		};
 		template <LikePackHolder AnotherPackHolder_T>
 		using back_expand_pack_t = typename back_expand_pack<AnotherPackHolder_T>::type;
@@ -66,7 +67,7 @@ namespace bmt
 		template <template<typename> typename Checker_TT>
 		struct copy_if
 		{
-			using type = typename BaseAlgorithms::copy_if_t<Checker_TT>::place_t<TypesPack>;
+			using type = typename BaseAlgorithms::template copy_if_t<Checker_TT>::template place_t<TypesPack>;
 		};
 		template <template<typename> typename Checker_TT>
 		using copy_if_t = typename copy_if<Checker_TT>::type;
@@ -74,17 +75,17 @@ namespace bmt
 		template <template<typename>typename Extractor_TT>
 		struct transform
 		{
-			using type = typename BaseAlgorithms::transform_t<Extractor_TT>::place_t<TypesPack>;
+			using type = typename BaseAlgorithms::template transform_t<Extractor_TT>::template place_t<TypesPack>;
 		};
 		template <template<typename>typename Extractor_TT>
 		using transform_t = typename transform<Extractor_TT>::type;
 
 	// nested "bool_constant" template types
 		template <LikePackHolder AnotherPackHolder_T>
-		using includes_pack = typename AnotherPackHolder_T::place_t<BaseAlgorithms::template includes>;
+		using includes_pack = typename AnotherPackHolder_T::template place_t<BaseAlgorithms::template includes>;
 		using BaseAlgorithms::partly_includes;
 		template <LikePackHolder AnotherPackHolder_T>
-		using partly_includes_pack = typename AnotherPackHolder_T::place_t<BaseAlgorithms::template partly_includes>;
+		using partly_includes_pack = typename AnotherPackHolder_T::template place_t<BaseAlgorithms::template partly_includes>;
 
 	// compile-time template variables.
 		template <LikePackHolder AnotherPackHolder_T>
