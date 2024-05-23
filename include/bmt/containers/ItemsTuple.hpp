@@ -29,6 +29,8 @@ namespace bmt::containers
 		ItemsTupleTail() = default;
 		ItemsTupleTail(const ItemsTupleTail&) = default;
 		ItemsTupleTail(ItemsTupleTail&&) = default;
+		ItemsTupleTail& operator=(const ItemsTupleTail&) = default;
+		ItemsTupleTail& operator=(ItemsTupleTail&&) = default;
 
 		ItemsTupleTail(const ItemType_T &first, const Pack_T&... args)
 		:	ItemsTupleTail<Pack_T...>(args...),
@@ -75,6 +77,8 @@ namespace bmt::containers
 		ItemsTuple() = default;
 		ItemsTuple(const ItemsTuple&) = default;
 		ItemsTuple(ItemsTuple&&) = default;
+		ItemsTuple& operator=(const ItemsTuple&) = default;
+		ItemsTuple& operator=(ItemsTuple&&) = default;
 
 		ItemsTuple(const Pack_T&... args)
 		:	Tail(args...) {}
@@ -104,6 +108,8 @@ namespace bmt::containers
 		ItemsTuple() = default;
 		ItemsTuple(const ItemsTuple&) = default;
 		ItemsTuple(ItemsTuple&&) = default;
+		ItemsTuple& operator=(const ItemsTuple&) = default;
+		ItemsTuple& operator=(ItemsTuple&&) = default;
 
 	public:
 		using Base::size;

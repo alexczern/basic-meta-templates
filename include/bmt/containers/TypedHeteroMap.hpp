@@ -18,10 +18,13 @@ namespace bmt::containers
 	private:
 		using Base = typename PackHolder_T::template place_t<PackAlgorithms>;
 		typename Base::template transform_t<Transformer_TT>::template place_t<ItemsTuple> itemsTuple;
+
 	public:
 		TypedHeteroMap() = default;
 		TypedHeteroMap(const TypedHeteroMap&) = default;
 		TypedHeteroMap(TypedHeteroMap&&) = default;
+		TypedHeteroMap& operator =(const TypedHeteroMap&) = default;
+		TypedHeteroMap& operator =(TypedHeteroMap&&) = default;
 
 		using typename Base::size;
 		using Base::size_v;
@@ -46,10 +49,14 @@ namespace bmt::containers
 	{
 	private:
 		using Base = PackAlgorithms<>;
+
 	protected:
 		TypedHeteroMap() = default;
 		TypedHeteroMap(const TypedHeteroMap&) = default;
 		TypedHeteroMap(TypedHeteroMap&&) = default;
+		TypedHeteroMap& operator =(const TypedHeteroMap&) = default;
+		TypedHeteroMap& operator =(TypedHeteroMap&&) = default;
+
 	public:
 		using Base::size;
 		using Base::size_v;

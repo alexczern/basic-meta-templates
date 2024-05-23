@@ -17,6 +17,8 @@ namespace bmt::containers
 		UnitedTypes() = default;
 		UnitedTypes(const UnitedTypes&) = default;
 		UnitedTypes(UnitedTypes&&) = default;
+		UnitedTypes& operator=(const UnitedTypes&) = default;
+		UnitedTypes& operator=(UnitedTypes&&) = default;
 
 		UnitedTypes(const ItemType_T &item, const Pack_T&... args)
 		:	ItemType_T(item),
@@ -31,6 +33,8 @@ namespace bmt::containers
 		UnitedTypes() = default;
 		UnitedTypes(const UnitedTypes&) = default;
 		UnitedTypes(UnitedTypes&&) = default;
+		UnitedTypes& operator=(const UnitedTypes&) = default;
+		UnitedTypes& operator=(UnitedTypes&&) = default;
 
 		UnitedTypes(const ItemType_T &item)
 		:	ItemType_T(item) {}

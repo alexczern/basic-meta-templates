@@ -15,15 +15,19 @@ namespace bmt::containers
 	class TypedMap
 	:	private PackHolder_T::template place_t<PackAlgorithms>
 	{
+	private:
 		using Base = typename PackHolder_T::template place_t<PackAlgorithms>;
 		std::array<
 			DataType_T,
 			Base::size_v
 		> arr;
+
 	public:
 		TypedMap() = default;
 		TypedMap(const TypedMap&) = default;
 		TypedMap(TypedMap&&) = default;
+		TypedMap& operator=(const TypedMap&) = default;
+		TypedMap& operator=(TypedMap&&) = default;
 
 		using typename Base::size;
 		using Base::size_v;
@@ -51,10 +55,14 @@ namespace bmt::containers
 	{
 	private:
 		using Base = PackAlgorithms<>;
+
 	protected:
 		TypedMap() = default;
 		TypedMap(const TypedMap&) = default;
 		TypedMap(TypedMap&&) = default;
+		TypedMap& operator=(const TypedMap&) = default;
+		TypedMap& operator=(TypedMap&&) = default;
+
 	public:
 		using Base::size;
 		using Base::size_v;
@@ -79,15 +87,19 @@ namespace bmt::containers
 	class TypedMultiMap
 	:	private PackHolder_T::template place_t<PackAlgorithms>
 	{
+	private:
 		using Base = typename PackHolder_T::template place_t<PackAlgorithms>;
 		std::array<
 			DataType_T,
 			Base::size_v
 		> arr;
+
 	public:
 		TypedMultiMap() = default;
 		TypedMultiMap(const TypedMultiMap&) = default;
 		TypedMultiMap(TypedMultiMap&&) = default;
+		TypedMultiMap& operator=(const TypedMultiMap&) = default;
+		TypedMultiMap& operator=(TypedMultiMap&&) = default;
 
 		using typename Base::size;
 		using Base::size_v;
@@ -112,10 +124,14 @@ namespace bmt::containers
 	{
 	private:
 		using Base = PackAlgorithms<>;
+
 	protected:
 		TypedMultiMap() = default;
 		TypedMultiMap(const TypedMultiMap&) = default;
 		TypedMultiMap(TypedMultiMap&&) = default;
+		TypedMultiMap& operator=(const TypedMultiMap&) = default;
+		TypedMultiMap& operator=(TypedMultiMap&&) = default;
+
 	public:
 		using Base::size;
 		using Base::size_v;
