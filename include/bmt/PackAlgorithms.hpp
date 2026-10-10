@@ -243,11 +243,11 @@ namespace bmt
 			//~ T::template count_v;
 			//~ T::template index_of_v;
 
-			T::template forEach([]<typename>{});
-			T::template indexedForEach([]<size_t, typename>{});
-			{T::template anyOf([]<typename>{})} -> std::same_as<bool>;
-			{T::template allOf([]<typename>{})} -> std::same_as<bool>;
-			{T::template noneOf([]<typename>{})} -> std::same_as<bool>;
+			T::forEach([]<typename>{});
+			T::indexedForEach([]<size_t, typename>{});
+			{T::anyOf([]<typename>{})} -> std::same_as<bool>;
+			{T::allOf([]<typename>{})} -> std::same_as<bool>;
+			{T::noneOf([]<typename>{})} -> std::same_as<bool>;
 		};
 		static_assert(LikePackAlgorithms<PackAlgorithms<>>);
 }

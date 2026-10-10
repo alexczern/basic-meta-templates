@@ -333,7 +333,7 @@ namespace bmt
 	#if 1 //test run-time static methods
 		bool found_error = false;
 		size_t counter = 0;
-		Example::template indexedForEach(
+		Example::indexedForEach(
 			[&counter, &found_error]<size_t index, typename ItemType>
 			{
 				if(counter != index)
@@ -345,7 +345,7 @@ namespace bmt
 		tester.check_assert(counter == 11);
 		counter = 0;
 
-		Example:: template forEach(
+		Example::forEach(
 			[&counter] <typename ItemType> { ++counter; }
 		);
 		tester.check_assert(counter == 11);

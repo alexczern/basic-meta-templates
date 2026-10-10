@@ -17,12 +17,12 @@ namespace bmt
 			typename T::TagType;
 			requires LikeTagOfLogger<T, typename T::TagType>;
 			{ log.tag("str") } -> std::same_as<typename T::TagType>;
-			log.template info(str, i, str);
-			log.template warning(str, i, str);
-			log.template debug(str, i, str);
-			log.template trace(str, i, str);
-			log.template error(str, i, str);
-			log.template fatal(str, i, str);
+			log.info(str, i, str);
+			log.warning(str, i, str);
+			log.debug(str, i, str);
+			log.trace(str, i, str);
+			log.error(str, i, str);
+			log.fatal(str, i, str);
 		};
 
 	template <LikeLogger Logger_T>
